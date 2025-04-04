@@ -2,7 +2,7 @@ import express from 'express';
 import dotenv from 'dotenv';
 import router from '../routes/Router.js';
 import { sequelize } from '../database/config/database.js';
-// rama develop
+// rama dto salida -> agregar dtos y servicios para el output de datos
 dotenv.config();
 
 const app = express();
