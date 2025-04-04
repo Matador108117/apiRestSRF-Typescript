@@ -2,7 +2,7 @@ import express from 'express';
 import dotenv from 'dotenv';
 import router from '../routes/Router.js';
 import { sequelize } from '../database/config/database.js';
-// rama develop
+// rama dto entrada
 dotenv.config();
 
 const app = express();
