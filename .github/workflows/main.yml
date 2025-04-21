@@ -1,0 +1,38 @@
+name: Deploy postgresql api
+
+on:
+  push:
+    branches: ["master"]
+
+jobs:
+  deploy-api:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: echo 'hello world ...'
+      - run: ls -la
+      - run: touch .env
+      - run: echo 'TEST_DATABASE_URL=${{secrets.TEST_DATABASE_URL}}'>> .env
+      - run: echo 'PORT=${{secrets.PORT}}'>> .env
+      - run: echo 'DB_HOST=${{secrets.DB_HOST}}'>> .env
+      - run: echo 'DB_USER=${{secrets.DB_USER}}'>> .env
+      - run: echo 'DB_PASS=${{secrets.DB_PASS}}'>> .env
+      - run: echo 'DB_NAME=${{secrets.DB_NAME}}'>> .env
+      - run: echo 'DB_PORT=${{secrets.DB_PORT}}'>> .env
+      
+      
+      - run: cat .env
+      - run: docker build -t matador108117/apiRest-SRF:${{github.sha}} .
+      - run: docker images
+   
+      - name: docker login
+        env:
+          DOCKER_USER: ${{secrets.DOCKER_USER}}
+          DOCKER_PASSWORD: ${{secrets.DOCKER_PASSWORD}}
+        run:  docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
+        
+      - name: docker push
+        run:  docker push ${{ secrets.DOCKER_USER}}/restApi-SRF:${{github.sha}} 
