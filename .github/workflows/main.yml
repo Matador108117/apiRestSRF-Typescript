@@ -25,7 +25,7 @@ jobs:
       
       
       - run: cat .env
-      - run: docker build -t matador108117/apirest-SRF:${{github.sha}} .
+      - run: docker build -t matador108117/apirest-srf:${{github.sha}} .
       - run: docker images
    
       - name: docker login
@@ -35,4 +35,4 @@ jobs:
         run:  docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
         
       - name: docker push
-        run:  docker push ${{ secrets.DOCKER_USER}}/apirest-SRF:${{github.sha}} 
+        run:  docker push ${{ secrets.DOCKER_USER}}/apirest-srf:${{github.sha}} 
