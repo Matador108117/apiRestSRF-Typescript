@@ -6,49 +6,49 @@ import {
   IsEmail,
   Length,
   PrimaryKey,
-  Default,
   AllowNull,
   Unique,
+  AutoIncrement,
 } from 'sequelize-typescript';
 
-@Table
-export class Fituser extends Model {
+@Table({})
+export class Fituser extends Model<Fituser> {
   @PrimaryKey
-  @Default(DataType.INTEGER)
+  @AutoIncrement
   @Column(DataType.INTEGER)
-  userid!: number;
+  declare userid: number;
 
   @AllowNull(false)
   @Length({ min: 10, max: 10 })
   @Unique
   @Column(DataType.STRING)
-  matricula!: string;
+  declare matricula: string;
 
   @AllowNull(false)
   @Length({ min: 2, max: 50 })
   @Column(DataType.STRING)
-  nombre!: string;
+  declare nombre: string;
 
   @AllowNull(false)
   @Length({ min: 2, max: 50 })
   @Column(DataType.STRING)
-  apellido!: string;
+  declare apellido: string;
 
   @AllowNull(false)
   @IsEmail
   @Unique
   @Column(DataType.STRING)
-  email!: string;
+  declare email: string;
 
   @AllowNull(false)
   @Length({ min: 6, max: 16 })
   @Column(DataType.STRING)
-  password!: string;
+  declare password: string;
 
   @AllowNull(false)
   @Column(DataType.DATEONLY)
-  fecha_inicio!: string;
+  declare fecha_inicio: string;
 
   @Column(DataType.DATEONLY)
-  fecha_actualizacion?: string;
+  declare fecha_actualizacion?: string;
 }

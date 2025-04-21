@@ -7,22 +7,14 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-import { Table, Column, Model, DataType, IsEmail, Length, PrimaryKey, Default, AllowNull, Unique, } from 'sequelize-typescript';
+import { Table, Column, Model, DataType, IsEmail, Length, PrimaryKey, AllowNull, Unique, AutoIncrement, } from 'sequelize-typescript';
 let Fituser = class Fituser extends Model {
-    userid;
-    matricula;
-    nombre;
-    apellido;
-    email;
-    password;
-    fecha_inicio;
-    fecha_actualizacion;
 };
 __decorate([
     PrimaryKey,
-    Default(DataType.UUIDV4),
-    Column(DataType.UUID),
-    __metadata("design:type", String)
+    AutoIncrement,
+    Column(DataType.INTEGER),
+    __metadata("design:type", Number)
 ], Fituser.prototype, "userid", void 0);
 __decorate([
     AllowNull(false),
@@ -66,6 +58,6 @@ __decorate([
     __metadata("design:type", String)
 ], Fituser.prototype, "fecha_actualizacion", void 0);
 Fituser = __decorate([
-    Table
+    Table({})
 ], Fituser);
 export { Fituser };
