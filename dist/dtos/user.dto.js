@@ -8,10 +8,10 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 import { IsEmail, IsNotEmpty, Length } from 'class-validator';
-import { Exclude, Expose } from 'class-transformer';
+import { Expose } from 'class-transformer';
 import { AutoIncrement, Column, DataType } from 'sequelize-typescript';
 export class FituserDto {
-    id;
+    userid;
     matricula;
     nombre;
     apellido;
@@ -24,7 +24,7 @@ __decorate([
     AutoIncrement,
     Column(DataType.INTEGER),
     __metadata("design:type", Number)
-], FituserDto.prototype, "id", void 0);
+], FituserDto.prototype, "userid", void 0);
 __decorate([
     IsNotEmpty(),
     Length(10, 10),
@@ -52,7 +52,7 @@ __decorate([
 __decorate([
     IsNotEmpty(),
     Length(6, 16),
-    Exclude(),
+    Expose(),
     __metadata("design:type", String)
 ], FituserDto.prototype, "password", void 0);
 __decorate([
