@@ -2,7 +2,7 @@ name: Deploy postgresql api
 
 on:
   push:
-    branches: ["master"]
+    branches: ["release"]
 
 jobs:
   deploy-api:
