@@ -1,14 +1,14 @@
 
 
 import { IsEmail, IsNotEmpty, Length, IsUUID } from 'class-validator';
-import { Exclude, Expose } from 'class-transformer';
+import {  Expose } from 'class-transformer';
 import { AutoIncrement, Column, DataType } from 'sequelize-typescript';
 
 export class FituserDto {
   @Expose()
   @AutoIncrement
   @Column(DataType.INTEGER)
-  id!: number;
+  userid!: number;
 
   @IsNotEmpty()
   @Length(10, 10)
@@ -32,7 +32,7 @@ export class FituserDto {
 
   @IsNotEmpty()
   @Length(6, 16)
-  @Exclude() 
+  @Expose()
   password!: string;
 
   @IsNotEmpty()
