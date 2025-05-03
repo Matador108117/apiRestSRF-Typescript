@@ -11,6 +11,6 @@ export const sequelize = new Sequelize({
   database: process.env.DB_NAME,
   models: [Fituser],
   dialectOptions: {
-    ssl: true // Required for Render.com PostgreSQL
+    ssl: false
   }
 });
