@@ -1,9 +1,60 @@
-import { Request, Response } from 'express';
-import { Fituser } from '../models/user.model.js';
-import { plainToInstance } from 'class-transformer';
-import { FituserDto } from '../dtos/user.dto.js';
-import { FILE } from 'dns';
 
+import { Request, Response } from 'express';
+import { UserService } from '../services/user.service.js';
+const userService = new UserService();
+
+export const getAllUsers = async (req: Request, res: Response) => {
+  try {
+    const users = await userService.getAllUsers();
+    res.status(200).json(users);
+  } catch {
+    res.status(500).json({ error: 'Error al obtener usuarios' });
+  }
+};
+
+export const createUser = async (req: Request, res: Response) => {
+  try {
+    const user = await userService.createUser(req.body);
+    res.status(201).json(user);
+  } catch {
+    res.status(500).json({ error: 'Error al crear usuario' });
+  }
+};
+export const getUserById = async (req: Request, res: Response) => {
+  try {
+    const user = await userService.getUserById(req.params.id);
+    res.status(202).json(user);
+  } catch (error) {
+    res.status(500).json({ error: 'error al buscar el usuario' });
+
+  }
+
+}
+export const updateUser = async (req: Request, res: Response) => {
+  try {
+    const user = await userService.updateUser(req.params.id, req.body);
+    res.status(203).json(user);
+  } catch (error) {
+    res.status(500).json({ error: 'error al actualizar el usuario' });
+  }
+
+}
+export const deleteUser = async (req: Request, res: Response) => {
+  try {
+    const idDeleted = await userService.deleteUser(req.params.id);
+    if (idDeleted) {
+      res.status(200).json({ message: 'El usuario se eliminó correctamente' });
+    } else {
+      res.status(404).json({ error: 'Usuario no encontrado' });
+    }
+  } catch (error) {
+    res.status(500).json({ error: 'Error al eliminar usuario' });
+  }
+};
+
+// similares para getUserById, updateUser, deleteUser
+
+/*
 export const getAllUsers = async (req: Request, res: Response) => {
   try {
     const fitusers = await Fituser.findAll();
@@ -86,4 +137,4 @@ export const deleteUser = async (req: Request, res: Response) => {
   }
 }
 
-
+*/

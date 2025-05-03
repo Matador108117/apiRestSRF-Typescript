@@ -1,10 +1,10 @@
 import { Router } from 'express';
-import { getAllUsers, createUser, getUserByid, deleteUser, updateUser } from '../controllers/user.controller.js';
+import { getAllUsers, createUser, getUserById, deleteUser, updateUser } from '../controllers/user.controller.js';
 import { validationMiddleware } from '../middlewares/user.validation.js';
 import { FituserDto } from '../dtos/user.dto.js';
 const router = Router();
 router.get('/users', getAllUsers);
-router.get('/users/:id', getUserByid);
+router.get('/users/:id', getUserById);
 router.delete('/users/:id', deleteUser);
 router.post('/users', validationMiddleware(FituserDto), createUser);
 router.put('/users/:id', validationMiddleware(FituserDto), updateUser);
