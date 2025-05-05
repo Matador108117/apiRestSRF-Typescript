@@ -26,7 +26,7 @@ __decorate([
 __decorate([
     AllowNull(false),
     Length({ min: 2, max: 50 }),
-    Column(DataType.STRING),
+    Column(DataType.STRING(50)),
     __metadata("design:type", String)
 ], Fituser.prototype, "nombre", void 0);
 __decorate([
@@ -58,6 +58,6 @@ __decorate([
     __metadata("design:type", String)
 ], Fituser.prototype, "fecha_actualizacion", void 0);
 Fituser = __decorate([
-    Table({})
+    Table({ tableName: 'FITUSER' })
 ], Fituser);
 export { Fituser };

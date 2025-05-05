@@ -1,27 +1,24 @@
 
 
-import { IsEmail, IsNotEmpty, Length, IsUUID } from 'class-validator';
-import {  Expose } from 'class-transformer';
-import { AutoIncrement, Column, DataType } from 'sequelize-typescript';
+import { IsEmail, IsNotEmpty, Length, IsUUID, IsString, isDateString, IsDateString } from 'class-validator';
+import { Expose } from 'class-transformer';
 
 export class FituserDto {
-  @Expose()
-  @AutoIncrement
-  @Column(DataType.INTEGER)
-  userid!: number;
 
   @IsNotEmpty()
   @Length(10, 10)
   @Expose()
   matricula!: string;
 
-  @IsNotEmpty()
-  @Length(2, 50)
   @Expose()
+  @IsNotEmpty()
+  @IsString()
+  @Length(2, 50)
   nombre!: string;
 
   @IsNotEmpty()
   @Length(2, 50)
+  @IsString()
   @Expose()
   apellido!: string;
 
@@ -30,12 +27,13 @@ export class FituserDto {
   @Expose()
   email!: string;
 
-  @IsNotEmpty()
-  @Length(6, 16)
   @Expose()
+  @IsNotEmpty()
+  @IsString()
+  @Length(6, 16)
   password!: string;
 
-  @IsNotEmpty()
   @Expose()
-  fecha_inicio!: string;
+  @IsDateString()
+  fecha_inicio!: string
 }
