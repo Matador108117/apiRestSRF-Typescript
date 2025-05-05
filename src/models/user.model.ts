@@ -1,54 +1,58 @@
-import {
-  Table,
-  Column,
-  Model,
-  DataType,
-  IsEmail,
-  Length,
-  PrimaryKey,
-  AllowNull,
-  Unique,
-  AutoIncrement,
-} from 'sequelize-typescript';
+  import {
+    Table,
+    Column,
+    Model,
+    DataType,
+    IsEmail,
+    Length,
+    PrimaryKey,
+    AllowNull,
+    Unique,
+    AutoIncrement,
+    HasMany,
 
-@Table({})
-export class Fituser extends Model<Fituser> {
-  @PrimaryKey
-  @AutoIncrement
-  @Column(DataType.INTEGER)
-  declare userid: number;
+  } from 'sequelize-typescript';
+  import { Notificacion } from './notificaciones.model.js';
+  import { EvaluacionesFisica } from './evaluacionesFisicas.model.js';
 
-  @AllowNull(false)
-  @Length({ min: 10, max: 10 })
-  @Unique
-  @Column(DataType.STRING)
-  declare matricula: string;
+  @Table({ tableName: 'FITUSER' })
+  export class Fituser extends Model<Fituser> {
+    @PrimaryKey
+    @AutoIncrement
+    @Column(DataType.INTEGER)
+    declare userid: number;
 
-  @AllowNull(false)
-  @Length({ min: 2, max: 50 })
-  @Column(DataType.STRING)
-  declare nombre: string;
+    @AllowNull(false)
+    @Length({ min: 10, max: 10 })
+    @Unique
+    @Column(DataType.STRING)
+    declare matricula: string;
 
-  @AllowNull(false)
-  @Length({ min: 2, max: 50 })
-  @Column(DataType.STRING)
-  declare apellido: string;
+    @AllowNull(false)
+    @Length({ min: 2, max: 50 })
+    @Column(DataType.STRING(50))
+    declare nombre: string;
 
-  @AllowNull(false)
-  @IsEmail
-  @Unique
-  @Column(DataType.STRING)
-  declare email: string;
+    @AllowNull(false)
+    @Length({ min: 2, max: 50 })
+    @Column(DataType.STRING)
+    declare apellido: string;
 
-  @AllowNull(false)
-  @Length({ min: 6, max: 16 })
-  @Column(DataType.STRING)
-  declare password: string;
+    @AllowNull(false)
+    @IsEmail
+    @Unique
+    @Column(DataType.STRING)
+    declare email: string;
 
-  @AllowNull(false)
-  @Column(DataType.DATEONLY)
-  declare fecha_inicio: string;
+    @AllowNull(false)
+    @Length({ min: 6, max: 16 })
+    @Column(DataType.STRING)
+    declare password: string;
 
-  @Column(DataType.DATEONLY)
-  declare fecha_actualizacion?: string;
-}
+    @AllowNull(false)
+    @Column(DataType.DATEONLY)
+    declare fecha_inicio: string;
+
+    @Column(DataType.DATEONLY)
+    declare fecha_actualizacion?: string;
+  }

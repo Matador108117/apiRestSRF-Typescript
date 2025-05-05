@@ -1,0 +1,63 @@
+import { Fituser } from '../models/user.model.js';
+import { plainToInstance } from 'class-transformer';
+import { FituserDto } from '../dtos/User/user.dto.js';
+import { FituserDTOout } from '../dtos/User/user.dto.out.js';
+import { UserNotificationsDTOOut } from '../dtos/User/userNotifiacion.dto.out.js';
+import { Notificacion } from '../models/notificaciones.model.js';
+
+export class UserService {
+    async getAllUsers(): Promise<FituserDTOout[]> {
+        const users = await Fituser.findAll();
+        return users.map(user => plainToInstance(FituserDTOout, user.toJSON(), {
+            excludeExtraneousValues: true,
+        }));
+    }
+
+    async getUserById(id: string): Promise<FituserDTOout | null> {
+        const user = await Fituser.findOne({ where: { userid: id } });
+        return user ? plainToInstance(FituserDTOout, user.toJSON(), { excludeExtraneousValues: true }) : null;
+    }
+
+    async createUser(data: any): Promise<FituserDTOout> {
+        const newUser = await Fituser.create(data);
+        return plainToInstance(FituserDTOout, newUser.toJSON(), {
+            excludeExtraneousValues: true,
+        });
+    }
+
+    async updateUser(id: string, data: any): Promise<FituserDTOout | null> {
+        const user = await Fituser.findOne({ where: { userid: id } });
+        if (!user) return null;
+
+        Object.assign(user, data);
+        await user.save();
+
+        return plainToInstance(FituserDTOout, user.toJSON(), {
+            excludeExtraneousValues: true,
+        });
+    }
+
+    async deleteUser(id: string): Promise<boolean> {
+        const user = await Fituser.findOne({ where: { userid: id } });
+        if (!user) return false;
+
+        await user.destroy();
+        return true;
+    }
+    async getUserNotificationsById(id: string): Promise<UserNotificationsDTOOut | null> {
+        console.log('1A')
+        const user = await Fituser.findOne({
+            where: { userid: id},
+            include: [{model: Notificacion,as: 'notifications',}
+            ],
+          });
+          
+        console.log('1B')
+
+        if (!user) return null;
+        console.log('1C')
+        return plainToInstance(UserNotificationsDTOOut, user.toJSON(), {
+            excludeExtraneousValues: true,
+        });
+    }
+}
