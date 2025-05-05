@@ -50,6 +50,21 @@ export const deleteUser = async (req, res) => {
         res.status(500).json({ error: 'Error al eliminar usuario' });
     }
 };
+export const getUserNotificationsById = async (req, res) => {
+    try {
+        console.log('1');
+        const userData = await userService.getUserNotificationsById(req.params.id);
+        console.log('2');
+        if (!userData) {
+            return res.status(404).json({ error: 'Usuario no encontrado' });
+        }
+        console.log('3');
+        res.status(200).json(userData);
+    }
+    catch (error) {
+        res.status(500).json({ error: 'Error al obtener notificaciones del usuario' });
+    }
+};
 // similares para getUserById, updateUser, deleteUser
 /*
 export const getAllUsers = async (req: Request, res: Response) => {
