@@ -9,11 +9,8 @@
     AllowNull,
     Unique,
     AutoIncrement,
-    HasMany,
 
   } from 'sequelize-typescript';
-  import { Notificacion } from './notificaciones.model.js';
-  import { EvaluacionesFisica } from './evaluacionesFisicas.model.js';
 
   @Table({ tableName: 'FITUSER' })
   export class Fituser extends Model<Fituser> {
@@ -35,7 +32,7 @@
 
     @AllowNull(false)
     @Length({ min: 2, max: 50 })
-    @Column(DataType.STRING)
+    @Column(DataType.STRING(50))
     declare apellido: string;
 
     @AllowNull(false)

@@ -4,13 +4,12 @@ import {
     Model,
     DataType,
     ForeignKey,
-    BelongsTo,
     PrimaryKey,
     AutoIncrement,
     AllowNull,
+    Default,
 } from 'sequelize-typescript';
 import { Fituser } from './user.model.js';
-import { DecimalDataType } from 'sequelize';
 @Table({ tableName: 'EVALUACIONES_FISICAS' })
 export class EvaluacionesFisica extends Model<EvaluacionesFisica> {
     @PrimaryKey
@@ -35,19 +34,8 @@ export class EvaluacionesFisica extends Model<EvaluacionesFisica> {
     @Column(DataType.DECIMAL(5,2))
     declare altura: number;
     
-    @AllowNull(false)
+    @Default('')
     @Column(DataType.TEXT)
     declare observaciones: string;
     
-
-    
-    
-
-
-    
-
-    
-
-
-
 }

@@ -34,9 +34,39 @@ export const getNotifiacionByid = async (req: Request, res: Response) => {
             res.status(200).json(notificacion);
         }
         else {
-            res.status(404).json({print: 'notificacion no encontrada'});
+            res.status(404).json({ print: 'notificacion no encontrada' });
         }
     } catch (error) {
         res.status(500).json({ error: 'error al buscar el usuario' });
     }
+}
+
+export const updateNotification = async (req: Request, res: Response) => {
+    try {
+        const notificacion = await serviceNotificaciones.updateNotificacion(req.params.id, req.body);
+        if (notificacion) {
+            res.status(200).json(notificacion);
+        }
+        else {
+            res.status(404).json({ respuesta: 'Notificacion no encontrada' });
+        }
+    } catch (error) {
+        res.status(500).json({ error: 'error al actualizar el usuario' })
+    }
+}
+
+export const deleteNotification = async (req: Request, res: Response) => {
+    try {
+        const notificacion = await serviceNotificaciones.deleteNotification(req.params.id);
+        if (!notificacion) {
+            res.status(404).json({ respuesta: 'Notificacion no encontrada' })
+        }
+        else {
+            res.status(200).json({ respuesta: 'La notificacion fue eliminada correctamente' });
+        }
+
+    } catch (error) {
+        res.status(500).json({ error: 'error al intentar eliminar el usuario' });
+    }
+
 }

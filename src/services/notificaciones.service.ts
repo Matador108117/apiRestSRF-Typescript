@@ -1,4 +1,3 @@
-import { promises } from "dns"
 import { Notificacion } from "../models/notificaciones.model.js"
 import { NotificacionesDTOin } from "../dtos/notificaciones/notificaciones.dto.in.js"
 import { plainToInstance } from "class-transformer";

@@ -2,9 +2,12 @@ import { Router } from 'express';
 import { getAllUsers, createUser, getUserById, deleteUser, updateUser, getUserNotificationsById } from '../controllers/user.controller.js';
 import { validationUserIn } from '../middlewares/user.validation.js';
 import { FituserDto } from '../dtos/User/user.dto.js';
-import { createNotificacion, getallNotificaciones, getNotifiacionByid } from '../controllers/notificaciones.controller.js';
+import { createNotificacion, deleteNotification, getallNotificaciones, getNotifiacionByid, updateNotification } from '../controllers/notificaciones.controller.js';
 import { validationNotifiacionesIn } from '../middlewares/notificaciones.validation.js';
 import { NotificacionesDTOin } from '../dtos/notificaciones/notificaciones.dto.in.js';
+import { createEvaluacionFisica, deleteEvaluacion, getAllEvaluacionesFisicas, getEvalucacionFisicaById, updateEvaluacionFisica } from '../controllers/evaluaciones_fisicas.controller.js';
+import { validationEvaluacionesFisicas } from '../middlewares/evaluaciones_fisicas.validation.js';
+import { EvaluacionesFisicasDTOin } from '../dtos/evaluacionesFisicas/evaluacionesFisicas.dto.in.js';
 
 const router = Router();
 // fitUser
@@ -20,5 +23,17 @@ router.get('/users/notifications/:id', getUserNotificationsById);
 router.get('/notifications', getallNotificaciones);
 router.get('/notifications/:id',getNotifiacionByid);
 router.post('/notifications',validationNotifiacionesIn(NotificacionesDTOin), createNotificacion);
+router.put('/notifications/:id',validationNotifiacionesIn(NotificacionesDTOin),updateNotification);
+router.delete('/notifications/:id', deleteNotification)
+
+//evaluaciones fisicas
+
+router.get('/physicalEvaluations', getAllEvaluacionesFisicas);
+router.post('pysicalEvaluations', validationEvaluacionesFisicas(EvaluacionesFisicasDTOin), createEvaluacionFisica);
+router.get('/pysicalEvaluaciones/:id', getEvalucacionFisicaById);
+router.put('/pysicalEvaluaciones/:id', validationEvaluacionesFisicas(EvaluacionesFisicasDTOin), updateEvaluacionFisica );
+router.delete('/pysicalEvaluaciones/:id', deleteEvaluacion);
+
+
 
 export default router;
