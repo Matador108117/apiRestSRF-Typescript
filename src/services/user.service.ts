@@ -45,17 +45,14 @@ export class UserService {
         return true;
     }
     async getUserNotificationsById(id: string): Promise<UserNotificationsDTOOut | null> {
-        console.log('1A')
         const user = await Fituser.findOne({
-            where: { userid: id},
-            include: [{model: Notificacion,as: 'notifications',}
+            where: { userid: id },
+            include: [{ model: Notificacion, as: 'notifications', }
             ],
-          });
-          
-        console.log('1B')
+        });
 
         if (!user) return null;
-        console.log('1C')
+        
         return plainToInstance(UserNotificationsDTOOut, user.toJSON(), {
             excludeExtraneousValues: true,
         });
