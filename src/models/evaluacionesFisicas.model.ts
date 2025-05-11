@@ -11,6 +11,7 @@ import {
 } from 'sequelize-typescript';
 import { Fituser } from './user.model.js';
 import { DecimalDataType } from 'sequelize';
+
 @Table({ tableName: 'EVALUACIONES_FISICAS' })
 export class EvaluacionesFisica extends Model<EvaluacionesFisica> {
     @PrimaryKey
