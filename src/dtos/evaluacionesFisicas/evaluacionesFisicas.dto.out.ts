@@ -1,6 +1,6 @@
 import { Expose } from "class-transformer";
 
-export class  evaluacionesFisicasDTOout{
+export class  EvaluacionesFisicasDTOout{
     @Expose()
     id_evaluacion_fisica!: number;
     

@@ -24,11 +24,11 @@ declare id_prueba: number;
 @Column(DataType.INTEGER)
 declare  id_evaluacion_fisica: number;
 
-@AllowNull
+@AllowNull(false)
 @Column(DataType.STRING)
 declare tipo: string
 
 @AllowNull(false)
 @Column(DataType.DECIMAL(5,2))
-declare resultado: DecimalDataType;
+declare resultado: number;
 }

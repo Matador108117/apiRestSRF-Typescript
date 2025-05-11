@@ -29,10 +29,10 @@ router.delete('/notifications/:id', deleteNotification)
 //evaluaciones fisicas
 
 router.get('/physicalEvaluations', getAllEvaluacionesFisicas);
-router.post('pysicalEvaluations', validationEvaluacionesFisicas(EvaluacionesFisicasDTOin), createEvaluacionFisica);
-router.get('/pysicalEvaluaciones/:id', getEvalucacionFisicaById);
-router.put('/pysicalEvaluaciones/:id', validationEvaluacionesFisicas(EvaluacionesFisicasDTOin), updateEvaluacionFisica );
-router.delete('/pysicalEvaluaciones/:id', deleteEvaluacion);
+router.post('/physicalEvaluations', validationEvaluacionesFisicas(EvaluacionesFisicasDTOin), createEvaluacionFisica);
+router.get('/physicalEvaluations/:id', getEvalucacionFisicaById);
+router.put('/physicalEvaluations/:id', validationEvaluacionesFisicas(EvaluacionesFisicasDTOin), updateEvaluacionFisica );
+router.delete('/physicalEvaluations/:id', deleteEvaluacion);
 
 
 
