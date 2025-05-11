@@ -9,7 +9,7 @@ export function associate() {
     Fituser.hasMany(Notificacion, { foreignKey: 'id_usuario' , as: 'notifications'});
     Notificacion.belongsTo(Fituser, { foreignKey: 'id_usuario' });
 
-    Fituser.hasMany(EvaluacionesFisica, { foreignKey: 'id_usuario' });
+    Fituser.hasMany(EvaluacionesFisica, { foreignKey: 'id_usuario', as: 'evaluations'});
     EvaluacionesFisica.belongsTo(Fituser, { foreignKey: 'id_usuario' });
 
     EvaluacionesFisica.hasMany(Prueba_fisica, { foreignKey: 'id_evaluacion_fisica' });
