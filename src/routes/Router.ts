@@ -27,13 +27,12 @@ router.put('/notifications/:id',validationNotifiacionesIn(NotificacionesDTOin),u
 router.delete('/notifications/:id', deleteNotification)
 
 //evaluaciones fisicas
-
 router.get('/physicalEvaluations', getAllEvaluacionesFisicas);
 router.post('/physicalEvaluations', validationEvaluacionesFisicas(EvaluacionesFisicasDTOin), createEvaluacionFisica);
 router.get('/physicalEvaluations/:id', getEvalucacionFisicaById);
 router.put('/physicalEvaluations/:id', validationEvaluacionesFisicas(EvaluacionesFisicasDTOin), updateEvaluacionFisica );
 router.delete('/physicalEvaluations/:id', deleteEvaluacion);
 
-
+//Pruebas fisicas
 
 export default router;
