@@ -1,29 +1,53 @@
-// src/controllers/avances.controller.ts
 import { Request, Response } from 'express';
 import { AvancesService } from '../services/avances.service.js';
 
-const avancesService = new AvancesService();
+const serv = new AvancesService();
 
-// Obtener todos los avances
 export const getAllAvances = async (req: Request, res: Response) => {
   try {
-    const avances = await avancesService.getAllAvances();
-    if (avances.length > 0) {
-      res.status(200).json(avances);
-    } else {
-      res.status(404).json({ message: 'No hay avances registrados' });
-    }
+    const avances = await serv.getAllAvances();
+    if (avances.length > 0) return res.status(200).json(avances);
+    return res.status(404).json({ respuesta: 'No hay avances registrados' });
   } catch (error) {
-    res.status(500).json({ error: 'Error al obtener avances' });
+    return res.status(500).json({ error: 'Error al recuperar avances' });
   }
 };
 
-// Crear un nuevo avance
 export const createAvance = async (req: Request, res: Response) => {
   try {
-    const newAvance = await avancesService.createAvance(req.body);
-    res.status(201).json(newAvance);
+    const avance = await serv.createAvance(req.body);
+    return res.status(201).json(avance);
   } catch (error) {
-    res.status(500).json({ error: 'Error al crear avance' });
+    return res.status(500).json({ error: 'Error al crear el avance' });
+  }
+};
+
+export const getAvanceById = async (req: Request, res: Response) => {
+  try {
+    const avance = await serv.getAvanceById(req.params.id);
+    if (!avance) return res.status(404).json({ respuesta: 'No se encontró el avance' });
+    return res.status(200).json(avance);
+  } catch (error) {
+    return res.status(500).json({ error: 'Error al obtener el avance' });
+  }
+};
+
+export const updateAvance = async (req: Request, res: Response) => {
+  try {
+    const avance = await serv.updateAvance(req.body, req.params.id);
+    if (!avance) return res.status(404).json({ respuesta: 'No se encontró el avance' });
+    return res.status(200).json(avance);
+  } catch (error) {
+    return res.status(500).json({ error: 'Error al actualizar el avance' });
+  }
+};
+
+export const deleteAvance = async (req: Request, res: Response) => {
+  try {
+    const deleted = await serv.deleteAvance(req.params.id);
+    if (!deleted) return res.status(404).json({ respuesta: 'No se encontró el avance' });
+    return res.status(200).json({ respuesta: 'Avance eliminado correctamente' });
+  } catch (error) {
+    return res.status(500).json({ error: 'Error al eliminar el avance' });
   }
 };
