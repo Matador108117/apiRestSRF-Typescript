@@ -6,12 +6,13 @@ import { Prueba_fisica } from '../../models/pruebasFisicas.model.js';
 
 export function associate() {
     // asociaciones de tablas
-    Fituser.hasMany(Notificacion, { foreignKey: 'id_usuario' , as: 'notifications'});
+    Fituser.hasMany(Notificacion, { foreignKey: 'id_usuario', as: 'notifications' });
     Notificacion.belongsTo(Fituser, { foreignKey: 'id_usuario' });
 
-    Fituser.hasMany(EvaluacionesFisica, { foreignKey: 'id_usuario', as: 'evaluations'});
+    Fituser.hasMany(EvaluacionesFisica, { foreignKey: 'id_usuario', as: 'evaluations' });
     EvaluacionesFisica.belongsTo(Fituser, { foreignKey: 'id_usuario' });
 
-    EvaluacionesFisica.hasMany(Prueba_fisica, { foreignKey: 'id_evaluacion_fisica' });
-    Prueba_fisica.belongsTo(EvaluacionesFisica, { foreignKey: 'id_evaluacion_fisica' });
+    EvaluacionesFisica.hasMany(Prueba_fisica, { foreignKey: 'id_evaluacion_fisica', as: 'physical_evaluations'});
+    Prueba_fisica.belongsTo(EvaluacionesFisica, {foreignKey: 'id_evaluacion_fisica',});
+
 }

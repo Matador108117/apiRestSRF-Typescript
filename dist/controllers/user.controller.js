@@ -74,3 +74,14 @@ export const getUserEvaluationsById = async (req, res) => {
         return res.status(500).json({ error: 'Error al buscar el usuarioo' });
     }
 };
+export const getUserEvaluationsProofsById = async (req, res) => {
+    try {
+        const user = await userService.getUserWithEvaluationsAndPruebas(req.params.id);
+        if (!user)
+            return res.status(404).json({ respuesta: 'No se encontro el usuario' });
+        return res.status(200).json(user);
+    }
+    catch (error) {
+        return res.status(500).json({ error: 'Error al buscar el usuarioo' });
+    }
+};

@@ -1,11 +1,12 @@
 import { Fituser } from '../models/user.model.js';
 import { plainToInstance } from 'class-transformer';
-import { FituserDto } from '../dtos/User/user.dto.js';
 import { FituserDTOout } from '../dtos/User/user.dto.out.js';
 import { UserNotificationsDTOOut } from '../dtos/User/userNotifiacion.dto.out.js';
 import { Notificacion } from '../models/notificaciones.model.js';
 import { UserEvaluacionesDTOout } from '../dtos/User/userEvaluaciones.dto.out.js';
 import { EvaluacionesFisica } from '../models/evaluacionesFisicas.model.js';
+import { Prueba_fisica } from '../models/pruebasFisicas.model.js';
+import { UserEvaluacionPruebasDTOout } from '../dtos/User/userEvaluationsProof.dto.out.js';
 
 export class UserService {
     async getAllUsers(): Promise<FituserDTOout[]> {
@@ -21,8 +22,8 @@ export class UserService {
     }
 
     async createUser(data: any): Promise<FituserDTOout | null> {
-        const user = await Fituser.findOne({where: {matricula: data.matricula}})
-            if(user) return null;
+        const user = await Fituser.findOne({ where: { matricula: data.matricula } })
+        if (user) return null;
         const newUser = await Fituser.create(data);
         return plainToInstance(FituserDTOout, newUser.toJSON(), {
             excludeExtraneousValues: true,
@@ -32,7 +33,7 @@ export class UserService {
     async updateUser(id: string, data: any): Promise<FituserDTOout | null> {
         const user = await Fituser.findOne({ where: { userid: id } });
         if (!user) return null;
-        
+
         Object.assign(user, data);
         await user.save();
 
@@ -56,17 +57,41 @@ export class UserService {
         });
 
         if (!user) return null;
-        
+
         return plainToInstance(UserNotificationsDTOOut, user.toJSON(), {
             excludeExtraneousValues: true,
         });
     }
     async getUserEvaluationsById(id: string): Promise<UserEvaluacionesDTOout | null> {
-        const user = await Fituser.findOne ({ 
-            where: {userid: id },
-            include: [{model: EvaluacionesFisica, as: 'evaluations'},],
+        const user = await Fituser.findOne({
+            where: { userid: id },
+            include: [{ model: EvaluacionesFisica, as: 'evaluations' },],
         });
-        if(!user) return  null;
+        if (!user) return null;
         return plainToInstance(UserEvaluacionesDTOout, user.toJSON())
     }
+
+    async getUserWithEvaluationsAndPruebas(id: string): Promise<UserEvaluacionPruebasDTOout | null> {
+        const user = await Fituser.findOne({
+            where: { userid: id },
+            include: [{
+                model: EvaluacionesFisica,
+                as: 'evaluations',
+                include: [{
+                    model: Prueba_fisica,
+                    as: 'physical_evaluations',
+                }]
+            }]
+        });
+
+        if (!user) return null;
+
+        const plainUser = JSON.parse(JSON.stringify(user));
+
+        return plainToInstance(UserEvaluacionPruebasDTOout, plainUser, {
+            excludeExtraneousValues: true,
+        });
+    }
+
 }
+
