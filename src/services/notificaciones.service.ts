@@ -2,13 +2,16 @@ import { Notificacion } from "../models/notificaciones.model.js"
 import { NotificacionesDTOin } from "../dtos/notificaciones/notificaciones.dto.in.js"
 import { plainToInstance } from "class-transformer";
 import { NotificacionesDTOout } from "../dtos/notificaciones/notificaciones.dto.out.js";
+import { Fituser } from "../models/user.model.js";
 export class notificacionesService {
     async getallNotificaciones(): Promise<NotificacionesDTOin[]> {
         const notificaciones = await Notificacion.findAll();
         return notificaciones.map(notificacion => plainToInstance(NotificacionesDTOout, notificacion.toJSON()))
 
     }
-    async createNotificacion(data: any): Promise<NotificacionesDTOout> {
+    async createNotificacion(data: any): Promise<NotificacionesDTOout | null> {
+        const user = await Fituser.findOne({ where: { userid: data.id_usuario } });
+        if (!user) return null;
         const newNotificacion = await Notificacion.create(data);
         return plainToInstance(NotificacionesDTOout, newNotificacion.toJSON());
 
