@@ -1,6 +1,7 @@
 import { plainToInstance } from 'class-transformer';
 import { Avance } from '../models/avance.model.js';
 import { AvancesDTOOut } from '../dtos/avances/avances.dto.out.js';
+import { UsuarioRutina } from '../models/usuarioRutinas.model.js';
 
 export class AvancesService {
   async getAllAvances(): Promise<AvancesDTOOut[]> {
@@ -12,8 +13,12 @@ export class AvancesService {
     const avance = await Avance.findOne({ where: { id_avance: id } });
     return avance ? plainToInstance(AvancesDTOOut, avance.toJSON()) : null;
   }
+  
 
   async createAvance(data: any): Promise<AvancesDTOOut> {
+    const existe = await UsuarioRutina.findByPk(data.id_usuario_rutina);
+    if (!existe) throw new Error('La relación usuario-rutina no existe');
+
     const nuevo = await Avance.create(data);
     return plainToInstance(AvancesDTOOut, nuevo.toJSON());
   }

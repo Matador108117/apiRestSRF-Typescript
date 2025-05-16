@@ -1,6 +1,11 @@
 import { UsuarioRutina } from '../models/usuarioRutinas.model.js';
 import { plainToInstance } from 'class-transformer';
 import { UsuarioRutinaDTOOut } from '../dtos/usuarioRutinas/usuarioRutinas.dto.out.js';
+import { Fituser } from '../models/user.model.js';
+import { Rutina } from '../models/rutinas.model.js';
+
+
+
 
 export class UsuarioRutinasService {
   async getAll(): Promise<UsuarioRutinaDTOOut[]> {
@@ -14,6 +19,11 @@ export class UsuarioRutinasService {
   }
 
   async create(data: any): Promise<UsuarioRutinaDTOOut> {
+    const usuario = await Fituser.findByPk(data.id_usuario);
+    const rutina = await Rutina.findByPk(data.id_rutina);
+
+    if (!usuario || !rutina) throw new Error('Usuario o rutina no existen');
+
     const nuevo = await UsuarioRutina.create(data);
     return plainToInstance(UsuarioRutinaDTOOut, nuevo.toJSON());
   }
