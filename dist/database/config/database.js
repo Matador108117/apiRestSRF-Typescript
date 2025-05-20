@@ -5,6 +5,9 @@ import * as dotenv from 'dotenv';
 import { EvaluacionesFisica } from '../../models/evaluacionesFisicas.model.js';
 import { Prueba_fisica } from '../../models/pruebasFisicas.model.js';
 import { associate } from './associate.js';
+import { Avance } from '../../models/avance.model.js';
+import { UsuarioRutina } from '../../models/usuarioRutinas.model.js';
+import { Rutina } from '../../models/rutinas.model.js';
 dotenv.config();
 export const sequelize = new Sequelize({
     dialect: 'postgres',
@@ -12,7 +15,7 @@ export const sequelize = new Sequelize({
     username: process.env.DB_USER,
     password: process.env.DB_PASS,
     database: process.env.DB_NAME,
-    models: [Fituser, Notificacion, EvaluacionesFisica, Prueba_fisica],
+    models: [Fituser, Notificacion, EvaluacionesFisica, Prueba_fisica, Avance, UsuarioRutina, Rutina],
     dialectOptions: {
         ssl: false
     }
