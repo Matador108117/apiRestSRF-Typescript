@@ -26,7 +26,7 @@ export class PruebasFisicasService {
     return plainToInstance(PruebaFisicaDTOOut, prueba.toJSON());
   }
 
-  async deletePrueba(id: string): Promise<boolean> {
+  async deletePrueba(id: string): Promise<boolean>  {
     const prueba = await Prueba_fisica.findOne({ where: { id_prueba: id } });
     if (!prueba) return false;
     await prueba.destroy();
