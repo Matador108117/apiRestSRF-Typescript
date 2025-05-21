@@ -1,152 +1,87 @@
 import { UserService } from '../services/user.service.js';
+import { errorMessages } from '../configs/SharedMessages.enum.js';
 const userService = new UserService();
 export const getAllUsers = async (req, res) => {
     try {
         const users = await userService.getAllUsers();
-        res.status(200).json(users);
+        return res.status(200).json(users);
     }
     catch {
-        res.status(500).json({ error: 'Error al obtener usuarios' });
+        return res.status(500).json({ error: errorMessages.ERROR_500_USER });
     }
 };
 export const createUser = async (req, res) => {
     try {
         const user = await userService.createUser(req.body);
-        res.status(201).json(user);
+        if (user)
+            return res.status(405).json({ respuesta: errorMessages.ERROR_405_USER });
+        return res.status(200).json(user);
     }
     catch {
-        res.status(500).json({ error: 'Error al crear usuario' });
+        return res.status(500).json({ error: errorMessages.ERROR_500_CREATE_USER });
     }
 };
 export const getUserById = async (req, res) => {
     try {
         const user = await userService.getUserById(req.params.id);
-        res.status(202).json(user);
+        if (!user)
+            return res.status(404).json(errorMessages.ERROR_404_USER);
+        return res.status(200).json(user);
     }
     catch (error) {
-        res.status(500).json({ error: 'error al buscar el usuario' });
+        return res.status(500).json({ error: errorMessages.ERROR_500_USER });
     }
 };
 export const updateUser = async (req, res) => {
     try {
         const user = await userService.updateUser(req.params.id, req.body);
-        res.status(203).json(user);
+        return res.status(203).json(user);
     }
     catch (error) {
-        res.status(500).json({ error: 'error al actualizar el usuario' });
+        return res.status(500).json({ error: errorMessages.ERROR_500_UPDATE_USER });
     }
 };
 export const deleteUser = async (req, res) => {
     try {
         const idDeleted = await userService.deleteUser(req.params.id);
-        if (idDeleted) {
-            res.status(200).json({ message: 'El usuario se eliminó correctamente' });
-        }
-        else {
-            res.status(404).json({ error: 'Usuario no encontrado' });
-        }
+        if (idDeleted)
+            return res.status(200).json({ message: errorMessages.OK_200_DELETE_USER });
+        return res.status(404).json({ error: errorMessages.ERROR_404_USER });
     }
     catch (error) {
-        res.status(500).json({ error: 'Error al eliminar usuario' });
+        res.status(500).json({ error: errorMessages.ERROR_500_DELETE_USER });
     }
 };
 export const getUserNotificationsById = async (req, res) => {
     try {
-        console.log('1');
         const userData = await userService.getUserNotificationsById(req.params.id);
-        console.log('2');
-        if (!userData) {
-            return res.status(404).json({ error: 'Usuario no encontrado' });
-        }
-        console.log('3');
-        res.status(200).json(userData);
+        if (!userData)
+            return res.status(404).json({ error: errorMessages.ERROR_404_USER });
+        return res.status(200).json(userData);
     }
     catch (error) {
-        res.status(500).json({ error: 'Error al obtener notificaciones del usuario' });
+        return res.status(500).json({ error: errorMessages.ERROR_500_USER_NOTIFICATIONS });
     }
 };
-// similares para getUserById, updateUser, deleteUser
-/*
-export const getAllUsers = async (req: Request, res: Response) => {
-  try {
-    const fitusers = await Fituser.findAll();
-    const fitusersdto = fitusers.map(user =>
-      plainToInstance(FituserDto, user.toJSON(), {
-        excludeExtraneousValues: true,
-      })
-    );
-    res.json(fitusersdto);
-  } catch (error) {
-    res.status(500).json({ error: 'Error al obtener usuarios' });
-  }
+export const getUserEvaluationsById = async (req, res) => {
+    try {
+        const user = await userService.getUserEvaluationsById(req.params.id);
+        if (!user)
+            return res.status(404).json({ respuesta: errorMessages.ERROR_404_USER });
+        return res.status(200).json(user);
+    }
+    catch (error) {
+        return res.status(500).json({ error: errorMessages.ERROR_500_USER });
+    }
 };
-
-export const createUser = async (req: Request, res: Response) => {
-  try {
-    const newFituser = await Fituser.create(req.body);
-    const userDto = plainToInstance(FituserDto, newFituser.toJSON(), {
-      excludeExtraneousValues: true,
-    });
-    res.status(201).json(userDto);
-  } catch (error: any) {
-    console.error('error ', error);
-    res.status(500).json({ error: 'Error al crear usuario' });
-  }
+export const getUserEvaluationsProofsById = async (req, res) => {
+    try {
+        const user = await userService.getUserWithEvaluationsAndPruebas(req.params.id);
+        if (!user)
+            return res.status(404).json({ respuesta: errorMessages.ERROR_404_USER });
+        return res.status(200).json(user);
+    }
+    catch (error) {
+        return res.status(500).json({ error: errorMessages.ERROR_500_USER });
+    }
 };
-export const getUserByid = async (req: Request, res: Response) => {
-  try {
-    const fitUser = await Fituser.findOne({ where: { userid: req.params.id } });
-    if (fitUser) {
-      return res.status(200).json(plainToInstance(FituserDto, fitUser.toJSON()));
-    }
-    else {
-      return res.status(404).json({ error: 'Usuario no encontrado' });
-    }
-  } catch (error) {
-    res.status(500).json({ error: 'Error al obtener usuario' });
-  }
-
-}
-export const updateUser = async (req: Request, res: Response) => {
-  try {
-    const fitUser = await Fituser.findOne({ where: { userid: req.params.id } });
-    if (fitUser) {
-      const userDto = plainToInstance(FituserDto, req.body);
-      fitUser.nombre = userDto.nombre;
-      fitUser.apellido = userDto.apellido;
-      fitUser.matricula = userDto.matricula;
-      fitUser.email = userDto.email;
-      fitUser.password = userDto.password;
-      fitUser.fecha_inicio = userDto.fecha_inicio;
-
-      await fitUser.save();
-
-      const updatedDto = plainToInstance(FituserDto, fitUser.toJSON(), {
-        excludeExtraneousValues: true,
-      });
-      return res.status(200).json(updatedDto);
-    } else {
-      return res.status(404).json({ error: 'Usuario no encontrado' });
-    }
-  } catch (error) {
-    console.error('Error al actualizar usuario:', error);
-    res.status(500).json({ error: 'Error al actualizar usuario' });
-  }
-};
-
-
-export const deleteUser = async (req: Request, res: Response) => {
-  try {
-    const fitUser = await Fituser.findOne({ where: { userid: req.params.id } });
-    if (fitUser) {
-      await fitUser.destroy();
-      return res.status(200).json({ message: 'Usuario eliminado' });
-    } else {
-      return res.status(404).json({ error: 'Usuario no encontrado' });
-    }
-  } catch (error) {
-    res.status(500).json({ error: 'Error al eliminar usuario' });
-  }
-}
-
-*/

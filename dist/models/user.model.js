@@ -32,7 +32,7 @@ __decorate([
 __decorate([
     AllowNull(false),
     Length({ min: 2, max: 50 }),
-    Column(DataType.STRING),
+    Column(DataType.STRING(50)),
     __metadata("design:type", String)
 ], Fituser.prototype, "apellido", void 0);
 __decorate([
