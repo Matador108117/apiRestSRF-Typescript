@@ -3,22 +3,22 @@ import { PruebaFisicaDTOOut } from '../dtos/pruebasFisicas/pruebasFisicas.dto.ou
 import { plainToInstance } from 'class-transformer';
 
 export class PruebasFisicasService {
-  async getAll(): Promise<PruebaFisicaDTOOut[]> {
+  async getAllPruebasFisicas(): Promise<PruebaFisicaDTOOut[]> {
     const pruebas = await Prueba_fisica.findAll();
     return pruebas.map(p => plainToInstance(PruebaFisicaDTOOut, p.toJSON()));
   }
 
-  async getById(id: string): Promise<PruebaFisicaDTOOut | null> {
+  async getaPruebaFisicaById(id: string): Promise<PruebaFisicaDTOOut | null> {
     const prueba = await Prueba_fisica.findOne({ where: { id_prueba: id } });
     return prueba ? plainToInstance(PruebaFisicaDTOOut, prueba.toJSON()) : null;
   }
 
-  async create(data: any): Promise<PruebaFisicaDTOOut> {
+  async createPruebaFisica(data: any): Promise<PruebaFisicaDTOOut> {
     const nueva = await Prueba_fisica.create(data);
     return plainToInstance(PruebaFisicaDTOOut, nueva.toJSON());
   }
 
-  async update(data: any, id: string): Promise<PruebaFisicaDTOOut | null> {
+  async updatePruebaFisicas(data: any, id: string): Promise<PruebaFisicaDTOOut | null> {
     const prueba = await Prueba_fisica.findOne({ where: { id_prueba: id } });
     if (!prueba) return null;
     Object.assign(prueba, data);
@@ -26,7 +26,7 @@ export class PruebasFisicasService {
     return plainToInstance(PruebaFisicaDTOOut, prueba.toJSON());
   }
 
-  async delete(id: string): Promise<boolean> {
+  async deletePrueba(id: string): Promise<boolean> {
     const prueba = await Prueba_fisica.findOne({ where: { id_prueba: id } });
     if (!prueba) return false;
     await prueba.destroy();

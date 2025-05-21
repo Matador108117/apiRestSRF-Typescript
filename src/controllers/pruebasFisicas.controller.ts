@@ -5,7 +5,7 @@ const serv = new PruebasFisicasService();
 
 export const getAllPruebasFisicas = async (req: Request, res: Response) => {
   try {
-    const pruebas = await serv.getAll();
+    const pruebas = await serv.getAllPruebasFisicas();
     if (pruebas.length > 0) return res.status(200).json(pruebas);
     return res.status(404).json({ mensaje: 'No hay pruebas físicas registradas' });
   } catch {
@@ -15,7 +15,7 @@ export const getAllPruebasFisicas = async (req: Request, res: Response) => {
 
 export const getPruebaFisicaById = async (req: Request, res: Response) => {
   try {
-    const prueba = await serv.getById(req.params.id);
+    const prueba = await serv.getaPruebaFisicaById(req.params.id);
     if (!prueba) return res.status(404).json({ mensaje: 'No se encontró la prueba física' });
     return res.status(200).json(prueba);
   } catch {
@@ -25,7 +25,7 @@ export const getPruebaFisicaById = async (req: Request, res: Response) => {
 
 export const createPruebaFisica = async (req: Request, res: Response) => {
   try {
-    const nueva = await serv.create(req.body);
+    const nueva = await serv.createPruebaFisica(req.body);
     return res.status(201).json(nueva);
   } catch {
     return res.status(500).json({ error: 'Error al crear prueba física' });
@@ -34,7 +34,7 @@ export const createPruebaFisica = async (req: Request, res: Response) => {
 
 export const updatePruebaFisica = async (req: Request, res: Response) => {
   try {
-    const actualizada = await serv.update(req.body, req.params.id);
+    const actualizada = await serv.updatePruebaFisicas(req.body, req.params.id);
     if (!actualizada) return res.status(404).json({ mensaje: 'No se encontró la prueba física' });
     return res.status(200).json(actualizada);
   } catch {
@@ -44,7 +44,7 @@ export const updatePruebaFisica = async (req: Request, res: Response) => {
 
 export const deletePruebaFisica = async (req: Request, res: Response) => {
   try {
-    const eliminada = await serv.delete(req.params.id);
+    const eliminada = await serv.deletePrueba(req.params.id);
     if (!eliminada) return res.status(404).json({ mensaje: 'No se encontró la prueba física' });
     return res.status(200).json({ mensaje: 'Prueba física eliminada correctamente' });
   } catch {

@@ -1,5 +1,5 @@
 import { Expose, Type } from "class-transformer";
-import { PruebasFisicasDTOout } from "../pruebasFisicas/PruebasFisicasDTOout.js";
+import { PruebaFisicaDTOOut } from "../pruebasFisicas/pruebasFisicas.dto.out.js";
 export class EvaluacionesPruebasDTOout {
     @Expose()
     id_evaluacion_fisica!: number;
@@ -8,6 +8,6 @@ export class EvaluacionesPruebasDTOout {
     id_usuario!: number;
     
     @Expose()
-    @Type(() => PruebasFisicasDTOout)
-    physical_evaluations!: PruebasFisicasDTOout[];
+    @Type(() => PruebaFisicaDTOOut)
+    physical_evaluations!: PruebaFisicaDTOOut[];
 }

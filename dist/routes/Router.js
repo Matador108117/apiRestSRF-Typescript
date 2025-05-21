@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { getAllUsers, createUser, getUserById, deleteUser, updateUser, getUserNotificationsById, getUserEvaluationsById, getUserEvaluationsProofsById } from '../controllers/user.controller.js';
+import { getAllUsers, createUser, getUserById, deleteUser, updateUser, getUserNotificationsById } from '../controllers/user.controller.js';
 import { validationUserIn } from '../middlewares/user.validation.js';
 import { FituserDto } from '../dtos/User/user.dto.js';
 import { createNotificacion, deleteNotification, getallNotificaciones, getNotifiacionByid, updateNotification } from '../controllers/notificaciones.controller.js';
@@ -28,8 +28,6 @@ router.delete('/users/:id', deleteUser);
 router.post('/users', validationUserIn(FituserDto), createUser);
 router.put('/users/:id', validationUserIn(FituserDto), updateUser);
 router.get('/users/notifications/:id', getUserNotificationsById);
-router.get('/users/evaluations/:id', getUserEvaluationsById);
-router.get('/users/evaluations/proofs/:id', getUserEvaluationsProofsById);
 // notifications
 router.get('/notifications', getallNotificaciones);
 router.get('/notifications/:id', getNotifiacionByid);

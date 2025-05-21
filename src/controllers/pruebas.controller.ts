@@ -35,7 +35,7 @@ export const getPruebaFisicaById = async (req: Request, res: Response) => {
 }
 export const updatePruebaFisica = async (req: Request, res: Response) => {
     try {
-        const prueba = await servicePruebas.updatePruebaFisica(req.body, req.params.id);
+        const prueba = await servicePruebas.updatePruebaFisicas(req.body, req.params.id);
         if (!prueba) return res.status(404).json({ respuesta: errorMessages.ERROR_404_PROOF })
         return res.status(200).json({})
     } catch (error) {
