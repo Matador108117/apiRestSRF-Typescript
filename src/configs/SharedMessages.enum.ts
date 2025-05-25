@@ -38,5 +38,44 @@ export enum errorMessages {
     ERROR_500_UPDATE_PROOF = "Error al actualizar la prueba fisica",
     ERROR_500_DELETE_PROOF = "Error al eliminar la prueba fisica",
     OK_200_DELETE_PROOF = "La prueba fisica ha sido eliminada correctamente",
+    
+    //Avences 
+    ERROR_404_AVANCE = "Avance no encontrado",
+    NO_AVANCES_EXIST = "No hay avances registrados",
+    ERROR_500_GET_AVANCES = "Error al recuperar avances",
+    ERROR_500_CREATE_AVANCE = "Error al crear el avance",
+    ERROR_500_UPDATE_AVANCE = "Error al actualizar el avance",
+    ERROR_500_DELETE_AVANCE = "Error al eliminar el avance",
+    OK_200_DELETE_AVANCE = "Avance eliminado correctamente",
 
+    //Pruebas Fisicas 
+    NO_PROOF_EXIST_PRUEBAS = "No hay pruebas físicas registradas",
+    ERROR_404_PRUEBAS = "Prueba física no encontrada",
+    ERROR_500_PRUEBAS = "Error al obtener las pruebas físicas",
+    ERROR_500_CREATE_PRUEBAS = "Error al crear la prueba física",
+    ERROR_500_UPDATE_PRUEBAS = "Error al actualizar la prueba física",
+    ERROR_500_DELETE_PRUEBAS = "Error al eliminar la prueba física",
+    OK_200_DELETE_PRUEBAS = "Prueba física eliminada correctamente",
+
+    // Rutinas
+    NO_RUTINAS_EXIST = "No hay rutinas registradas",
+    ERROR_404_RUTINA = "Rutina no encontrada",
+    ERROR_500_GET_RUTINAS = "Error al recuperar rutinas",
+    ERROR_500_CREATE_RUTINA = "Error al crear la rutina",
+    ERROR_500_UPDATE_RUTINA = "Error al actualizar la rutina",
+    ERROR_500_DELETE_RUTINA = "Error al eliminar la rutina",
+    OK_200_DELETE_RUTINA = "Rutina eliminada correctamente",
+
+    // UsuarioRutinas
+    NO_USUARIO_RUTINAS_EXIST = "No hay asignaciones registradas",
+    ERROR_404_USUARIO_RUTINA = "No se encontró la asignación",
+    ERROR_500_GET_USUARIO_RUTINA = "Error al obtener asignaciones",
+    ERROR_500_CREATE_USUARIO_RUTINA = "Error al crear la asignación",
+    ERROR_500_UPDATE_USUARIO_RUTINA = "Error al actualizar la asignación",
+    ERROR_500_DELETE_USUARIO_RUTINA = "Error al eliminar la asignación",
+    OK_200_DELETE_USUARIO_RUTINA = "Asignación eliminada correctamente",
+
+
+  
+  
 }
