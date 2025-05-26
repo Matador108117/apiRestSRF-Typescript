@@ -1,5 +1,6 @@
 import { IsInt, IsNotEmpty, IsString, IsNumber } from 'class-validator';
 import { Expose } from 'class-transformer';
+import { Min } from 'sequelize-typescript';
 
 export class PruebaFisicaDTOIn {
   @Expose()
