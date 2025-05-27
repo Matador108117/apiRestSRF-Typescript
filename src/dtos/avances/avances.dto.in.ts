@@ -1,5 +1,5 @@
 // src/dtos/avances/avances.dto.in.ts
-import { IsNotEmpty, IsOptional, IsString, IsDecimal, IsDateString,Min } from 'class-validator';
+import { IsNotEmpty, IsOptional, IsString,IsDateString,Min, Max, IsNumber } from 'class-validator';
 import { Expose } from 'class-transformer';
 
 export class AvancesDTOIn {
@@ -15,7 +15,9 @@ export class AvancesDTOIn {
 
   @Expose()
   @IsOptional()
-  @IsDecimal()
+  @IsNumber({ allowNaN: false, allowInfinity: false, maxDecimalPlaces: 2 }, { message: 'El valor debe ser un número válido' })
+      @Min(20)
+      @Max(250)
   peso_actual?: number;
 
   @Expose()

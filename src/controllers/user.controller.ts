@@ -16,10 +16,15 @@ export const getAllUsers = async (req: Request, res: Response) => {
 export const createUser = async (req: Request, res: Response) => {
   try {
     const user = await userService.createUser(req.body);
-    if (user) return res.status(405).json({ respuesta: errorMessages.ERROR_405_USER });
+    if (!user) return res.status(409).json({ respuesta: errorMessages.ERROR_405_USER });
     return res.status(200).json(user);
-  } catch {
+  } catch(errors) {
+    if (errors instanceof Error) {
+    return res.status(409).json({ error: errors.message });
+    }
+    console.log(errors);
     return res.status(500).json({ error: errorMessages.ERROR_500_CREATE_USER });
+    
   }
 };
 export const getUserById = async (req: Request, res: Response) => {

@@ -22,8 +22,10 @@ export class UserService {
     }
 
     async createUser(data: any): Promise<FituserDTOout | null> {
-        const user = await Fituser.findOne({ where: { matricula: data.matricula } })
+        const user = await Fituser.findOne({ where: { matricula: data.matricula } });
         if (user) return null;
+        const email = await Fituser.findOne({ where: { email: data.email } });
+        if (email) throw new Error('Email already exists');
         const newUser = await Fituser.create(data);
         return plainToInstance(FituserDTOout, newUser.toJSON(), {
             excludeExtraneousValues: true,
