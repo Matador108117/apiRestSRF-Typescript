@@ -75,7 +75,4 @@ export enum errorMessages {
     ERROR_500_DELETE_USUARIO_RUTINA = "Error al eliminar la asignación",
     OK_200_DELETE_USUARIO_RUTINA = "Asignación eliminada correctamente",
 
-
-  
-  
 }
