@@ -42,7 +42,7 @@
     declare email: string;
 
     @AllowNull(false)
-    @Length({ min: 6, max: 16 })
+    @Length({ min: 6, max: 60 })
     @Column(DataType.STRING)
     declare password: string;
 

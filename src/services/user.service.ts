@@ -7,6 +7,7 @@ import { UserEvaluacionesDTOout } from '../dtos/User/userEvaluaciones.dto.out.js
 import { EvaluacionesFisica } from '../models/evaluacionesFisicas.model.js';
 import { Prueba_fisica } from '../models/pruebasFisicas.model.js';
 import { UserEvaluacionPruebasDTOout } from '../dtos/User/userEvaluationsProof.dto.out.js';
+import bcrypt from 'bcryptjs';
 
 export class UserService {
     async getAllUsers(): Promise<FituserDTOout[]> {
@@ -26,6 +27,7 @@ export class UserService {
         if (user) return null;
         const email = await Fituser.findOne({ where: { email: data.email } });
         if (email) throw new Error('Email already exists');
+        data.password = await bcrypt.hash(data.password, 10);
         const newUser = await Fituser.create(data);
         return plainToInstance(FituserDTOout, newUser.toJSON(), {
             excludeExtraneousValues: true,
