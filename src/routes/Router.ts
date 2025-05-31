@@ -1,4 +1,8 @@
 import { Router } from 'express';
+import { login } from '../controllers/login.auth.controller.js';
+import { LoginDto } from '../dtos/authentification/authDTO.js';
+
+
 import { getAllUsers, createUser, getUserById, deleteUser, updateUser, getUserNotificationsById, getUserEvaluationsById, getUserEvaluationsProofsById } from '../controllers/user.controller.js';
 import { validationUserIn } from '../middlewares/user.validation.js';
 import { FituserDto } from '../dtos/User/user.dto.js';
@@ -27,14 +31,15 @@ import { PruebaFisicaDTOIn } from '../dtos/pruebasFisicas/pruebasFisicas.dto.in.
 import { createUsuarioRutina, getAllUsuarioRutinas, getUsuarioRutinaById, updateUsuarioRutina, deleteUsuarioRutina } from '../controllers/usuarioRutinas.controller.js';
 import { validationUsuarioRutinasIn } from '../middlewares/usuarioRutinas.validation.js';
 import { UsuarioRutinaDTOIn } from '../dtos/usuarioRutinas/usuarioRutinas.dto.in.js';
+import { authenticateToken } from '../middlewares/authenticateToken.js';
 
 const router = Router();
 // fitUser
-router.get('/users', getAllUsers);
-router.get('/users/:id', getUserById);
+router.get('/users', authenticateToken,getAllUsers);
+router.get('/users/:id',authenticateToken, getUserById);
 router.delete('/users/:id', deleteUser);
 router.post('/users', validationUserIn(FituserDto), createUser);
-router.put('/users/:id', validationUserIn(FituserDto), updateUser);
+router.put('/users/:id',authenticateToken, validationUserIn(FituserDto), updateUser);
 router.get('/users/notifications/:id', getUserNotificationsById);
 
 // notifications
@@ -81,5 +86,8 @@ router.get('/usuarioRutinas/:id', getUsuarioRutinaById);
 router.post('/usuarioRutinas', validationUsuarioRutinasIn(UsuarioRutinaDTOIn), createUsuarioRutina);
 router.put('/usuarioRutinas/:id', validationUsuarioRutinasIn(UsuarioRutinaDTOIn), updateUsuarioRutina);
 router.delete('/usuarioRutinas/:id', deleteUsuarioRutina);
+
+// validacion jwt login
+router.post('/auth/login', validationUserIn(LoginDto), login);
 
 export default router;
