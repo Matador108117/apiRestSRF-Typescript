@@ -11,11 +11,10 @@ export const getAllUsers = async (req, res) => {
     }
 };
 export const createUser = async (req, res) => {
-    console.log("xd");
     try {
         const user = await userService.createUser(req.body);
         if (!user)
-            return res.status(405).json({ respuesta: errorMessages.ERROR_405_USER });
+            return res.status(409).json({ respuesta: errorMessages.ERROR_405_USER });
         return res.status(200).json(user);
     }
     catch (errors) {

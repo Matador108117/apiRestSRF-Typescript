@@ -74,5 +74,11 @@ export enum errorMessages {
     ERROR_500_UPDATE_USUARIO_RUTINA = "Error al actualizar la asignación",
     ERROR_500_DELETE_USUARIO_RUTINA = "Error al eliminar la asignación",
     OK_200_DELETE_USUARIO_RUTINA = "Asignación eliminada correctamente",
+    // login
+    INVALID_PASSWORD = "Contraseña incorrecta",
+    ERROR_500_LOGIN = "Error al iniciar sesión",
 
+    //token validation
+    ERROR_401_NOT_TOKEN = "No se proporcionó un token",
+    ERROR_403_INVALID_TOKEN = "Token inválido o expirado",
 }

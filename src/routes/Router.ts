@@ -1,4 +1,8 @@
 import { Router } from 'express';
+import { login } from '../controllers/login.auth.controller.js';
+import { LoginDto } from '../dtos/authentification/authDTO.js';
+
+
 import { getAllUsers, createUser, getUserById, deleteUser, updateUser, getUserNotificationsById, getUserEvaluationsById, getUserEvaluationsProofsById } from '../controllers/user.controller.js';
 import { validationUserIn } from '../middlewares/user.validation.js';
 import { FituserDto } from '../dtos/User/user.dto.js';
@@ -27,59 +31,63 @@ import { PruebaFisicaDTOIn } from '../dtos/pruebasFisicas/pruebasFisicas.dto.in.
 import { createUsuarioRutina, getAllUsuarioRutinas, getUsuarioRutinaById, updateUsuarioRutina, deleteUsuarioRutina } from '../controllers/usuarioRutinas.controller.js';
 import { validationUsuarioRutinasIn } from '../middlewares/usuarioRutinas.validation.js';
 import { UsuarioRutinaDTOIn } from '../dtos/usuarioRutinas/usuarioRutinas.dto.in.js';
+import { authenticateToken } from '../middlewares/authenticateToken.js';
 
 const router = Router();
 // fitUser
-router.get('/users', getAllUsers);
-router.get('/users/:id', getUserById);
-router.delete('/users/:id', deleteUser);
-router.post('/users', validationUserIn(FituserDto), createUser);
-router.put('/users/:id', validationUserIn(FituserDto), updateUser);
-router.get('/users/notifications/:id', getUserNotificationsById);
+router.get('/users', authenticateToken,getAllUsers);
+router.get('/users/:id',authenticateToken, getUserById);
+router.delete('/users/:id',authenticateToken, deleteUser);
+router.post('/users',validationUserIn(FituserDto), createUser);
+router.put('/users/:id',authenticateToken, validationUserIn(FituserDto), updateUser);
+router.get('/users/notifications/:id', authenticateToken, getUserNotificationsById);
 
 // notifications
-router.get('/notifications', getallNotificaciones);
-router.get('/notifications/:id',getNotifiacionByid);
-router.post('/notifications',validationNotifiacionesIn(NotificacionesDTOin), createNotificacion);
-router.put('/notifications/:id',validationNotifiacionesIn(NotificacionesDTOin),updateNotification);
-router.delete('/notifications/:id', deleteNotification)
+router.get('/notifications',authenticateToken, getallNotificaciones);
+router.get('/notifications/:id',authenticateToken, getNotifiacionByid);
+router.post('/notifications',authenticateToken, validationNotifiacionesIn(NotificacionesDTOin), createNotificacion);
+router.put('/notifications/:id',authenticateToken, validationNotifiacionesIn(NotificacionesDTOin),updateNotification);
+router.delete('/notifications/:id',authenticateToken, deleteNotification)
 
 //evaluaciones fisicas
-router.get('/physicalEvaluations', getAllEvaluacionesFisicas);
-router.post('/physicalEvaluations', validationEvaluacionesFisicas(EvaluacionesFisicasDTOin), createEvaluacionFisica);
-router.get('/physicalEvaluations/:id', getEvalucacionFisicaById);
-router.put('/physicalEvaluations/:id', validationEvaluacionesFisicas(EvaluacionesFisicasDTOin), updateEvaluacionFisica );
+router.get('/physicalEvaluations',authenticateToken, getAllEvaluacionesFisicas);
+router.post('/physicalEvaluations',authenticateToken, validationEvaluacionesFisicas(EvaluacionesFisicasDTOin), createEvaluacionFisica);
+router.get('/physicalEvaluations/:id',authenticateToken, getEvalucacionFisicaById);
+router.put('/physicalEvaluations/:id',authenticateToken, validationEvaluacionesFisicas(EvaluacionesFisicasDTOin), updateEvaluacionFisica );
 router.delete('/physicalEvaluations/:id', deleteEvaluacion);
 
-// Rutas de rutinas 
-router.get('/rutinas', getAllRutinas);
-router.get('/rutinas/:id', getRutinaById);
-router.post('/rutinas', validationRutinasIn(RutinaDTOIn), createRutina);
-router.put('/rutinas/:id', validationRutinasIn(RutinaDTOIn), updateRutina);
-router.delete('/rutinas/:id', deleteRutina);
+// Rutas de rutinas
+router.get('/rutinas',authenticateToken, getAllRutinas);
+router.get('/rutinas/:id',authenticateToken, getRutinaById);
+router.post('/rutinas',authenticateToken, validationRutinasIn(RutinaDTOIn), createRutina);
+router.put('/rutinas/:id',authenticateToken, validationRutinasIn(RutinaDTOIn), updateRutina);
+router.delete('/rutinas/:id',authenticateToken, deleteRutina);
 
 
 // Rutas de avances
-router.get('/avances', getAllAvances);
-router.get('/avances/:id', getAvanceById);
-router.post('/avances', validationAvancesIn(AvancesDTOIn), createAvance);
-router.put('/avances/:id', validationAvancesIn(AvancesDTOIn), updateAvance);
-router.delete('/avances/:id', deleteAvance);
+router.get('/avances',authenticateToken, getAllAvances);
+router.get('/avances/:id',authenticateToken, getAvanceById);
+router.post('/avances',authenticateToken, validationAvancesIn(AvancesDTOIn), createAvance);
+router.put('/avances/:id',authenticateToken, validationAvancesIn(AvancesDTOIn), updateAvance);
+router.delete('/avances/:id',authenticateToken, deleteAvance);
 
-//Rutas de pruebas fisicas 
+//Rutas de pruebas fisicas
 
-router.get('/pruebasFisicas', getAllPruebasFisicas);
-router.get('/pruebasFisicas/:id', getPruebaFisicaById);
-router.post('/pruebasFisicas', validationPruebasFisicas(PruebaFisicaDTOIn), createPruebaFisica);
-router.put('/pruebasFisicas/:id', validationPruebasFisicas(PruebaFisicaDTOIn), updatePruebaFisica);
-router.delete('/pruebasFisicas/:id', deletePruebaFisica);
+router.get('/pruebasFisicas',authenticateToken, getAllPruebasFisicas);
+router.get('/pruebasFisicas/:id',authenticateToken, getPruebaFisicaById);
+router.post('/pruebasFisicas',authenticateToken, validationPruebasFisicas(PruebaFisicaDTOIn), createPruebaFisica);
+router.put('/pruebasFisicas/:id',authenticateToken, validationPruebasFisicas(PruebaFisicaDTOIn), updatePruebaFisica);
+router.delete('/pruebasFisicas/:id',authenticateToken, deletePruebaFisica);
 
-//Rutas de usuario rutinas 
+//Rutas de usuario rutinas
 
-router.get('/usuarioRutinas', getAllUsuarioRutinas);
-router.get('/usuarioRutinas/:id', getUsuarioRutinaById);
-router.post('/usuarioRutinas', validationUsuarioRutinasIn(UsuarioRutinaDTOIn), createUsuarioRutina);
-router.put('/usuarioRutinas/:id', validationUsuarioRutinasIn(UsuarioRutinaDTOIn), updateUsuarioRutina);
-router.delete('/usuarioRutinas/:id', deleteUsuarioRutina);
+router.get('/usuarioRutinas',authenticateToken, getAllUsuarioRutinas);
+router.get('/usuarioRutinas/:id',authenticateToken, getUsuarioRutinaById);
+router.post('/usuarioRutinas',authenticateToken, validationUsuarioRutinasIn(UsuarioRutinaDTOIn), createUsuarioRutina);
+router.put('/usuarioRutinas/:id',authenticateToken, validationUsuarioRutinasIn(UsuarioRutinaDTOIn), updateUsuarioRutina);
+router.delete('/usuarioRutinas/:id',authenticateToken, deleteUsuarioRutina);
+
+// validacion jwt login
+router.post('/auth/login', validationUserIn(LoginDto), login);
 
 export default router;
