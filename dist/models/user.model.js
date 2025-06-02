@@ -44,7 +44,7 @@ __decorate([
 ], Fituser.prototype, "email", void 0);
 __decorate([
     AllowNull(false),
-    Length({ min: 6, max: 16 }),
+    Length({ min: 6, max: 60 }),
     Column(DataType.STRING),
     __metadata("design:type", String)
 ], Fituser.prototype, "password", void 0);
