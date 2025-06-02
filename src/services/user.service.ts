@@ -28,6 +28,7 @@ export class UserService {
         const email = await Fituser.findOne({ where: { email: data.email } });
         if (email) throw new Error('Email already exists');
         data.password = await bcrypt.hash(data.password, 10);
+        
         const newUser = await Fituser.create(data);
         return plainToInstance(FituserDTOout, newUser.toJSON(), {
             excludeExtraneousValues: true,
