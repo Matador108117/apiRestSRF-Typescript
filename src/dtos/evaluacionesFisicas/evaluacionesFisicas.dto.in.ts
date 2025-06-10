@@ -38,8 +38,8 @@ export class EvaluacionesFisicasDTOin {
     @Expose()
     @IsNotEmpty()
     @IsString()
-    @Matches(/^(masculino|femenino|otro)$/, {
-        message: 'Sexo debe ser masculino, femenino u otro',
+    @Matches(/^(M|F|otro)$/, {
+        message: 'Sexo debe ser masculino (M), femenino (F) u otro',
     })
     sexo!: string;
     

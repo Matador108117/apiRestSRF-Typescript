@@ -11,7 +11,6 @@ import {
 } from 'sequelize-typescript';
 import { Fituser } from './user.model.js';
 
-import { DecimalDataType } from 'sequelize';
 
 
 
