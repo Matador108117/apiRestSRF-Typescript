@@ -26,7 +26,8 @@ export class LoginAuthService {
             SECRET,
             { expiresIn: '6h' }
         );
-        return { message: 'Login exitos', token };
+        const id = user.userid;
+        return { message: 'Login exitos', token, id, };
 
     }
 }

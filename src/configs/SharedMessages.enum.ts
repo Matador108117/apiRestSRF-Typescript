@@ -10,6 +10,7 @@ export enum errorMessages {
     ERROR_500_USER_NOTIFICATIONS = "Error al recuperar las notificaciones del usuario",
     ERROR_500_USER_EVALUATIONS = "Error al recuperar las evaluaciones del usuario",
     ERROR_500_USER_PROOF = "Error al recuperar las pruebas del usuario",
+    ERROR_409_EMAIL="Ese correo electronico ya fue registrado",
 
 
     //notifications error
@@ -81,4 +82,5 @@ export enum errorMessages {
     //token validation
     ERROR_401_NOT_TOKEN = "No se proporcionó un token",
     ERROR_403_INVALID_TOKEN = "Token inválido o expirado",
+    
 }

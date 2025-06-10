@@ -26,9 +26,13 @@ export class UserService {
         const user = await Fituser.findOne({ where: { matricula: data.matricula } });
         if (user) return null;
         const email = await Fituser.findOne({ where: { email: data.email } });
-        if (email) throw new Error('Email already exists');
+        if (email) {
+            const error = new Error();
+            (error as any).code = 'EMAIL_ALREADY_EXIST';
+            throw error;
+        }
         data.password = await bcrypt.hash(data.password, 10);
-        
+
         const newUser = await Fituser.create(data);
         return plainToInstance(FituserDTOout, newUser.toJSON(), {
             excludeExtraneousValues: true,

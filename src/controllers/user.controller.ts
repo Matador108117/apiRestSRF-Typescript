@@ -18,12 +18,11 @@ export const createUser = async (req: Request, res: Response) => {
     const user = await userService.createUser(req.body);
     if (!user) return res.status(409).json({ respuesta: errorMessages.ERROR_405_USER });
     return res.status(200).json(user);
-  } catch(errors) {
-    if (errors instanceof Error) {
-    return res.status(409).json({ error: errors.message });
-    }
+  } catch(errors: any) {
+    if (errors.code == "EMAIL_ALREADY_EXIST") return res.status(409).json({ error: errorMessages.ERROR_409_EMAIL, details: errors });
+    
     console.log(errors);
-    return res.status(500).json({ error: errorMessages.ERROR_500_CREATE_USER });
+    return res.status(500).json({ error: errorMessages.ERROR_500_CREATE_USER, details: errors });
     
   }
 };

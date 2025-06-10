@@ -49,7 +49,9 @@
     @AllowNull(false)
     @Column(DataType.DATEONLY)
     declare fecha_inicio: string;
-
+    
+    //@AllowNull(true)
+    //@Column(DataType)
     @Column(DataType.DATEONLY)
     declare fecha_actualizacion?: string;
   }
