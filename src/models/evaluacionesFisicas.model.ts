@@ -11,7 +11,6 @@ import {
 } from 'sequelize-typescript';
 import { Fituser } from './user.model.js';
 
-import { DecimalDataType } from 'sequelize';
 
 
 
@@ -38,6 +37,14 @@ export class EvaluacionesFisica extends Model<EvaluacionesFisica> {
     @AllowNull(false)
     @Column(DataType.DECIMAL(5,2))
     declare altura: number;
+    
+    @AllowNull(false)
+    @Column(DataType.INTEGER)
+    declare edad: number;
+
+    @AllowNull(false)
+    @Column(DataType.STRING)
+    declare sexo: string;
     
     @Default('')
     @Column(DataType.TEXT)

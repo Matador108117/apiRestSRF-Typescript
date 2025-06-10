@@ -15,6 +15,13 @@ export class  EvaluacionesFisicasDTOout{
     
     @Expose()
     altura!: number;
+
+    @Expose()
+    edad!: number;
+
+    @Expose()
+    sexo!: string;
+
     
     @Expose()
     observaciones!: string;
