@@ -27,6 +27,26 @@ export class EvaluacionesFisicasDTOin {
     @Min(1)
     @Max(3)
     altura!: number;
+
+    @Expose()
+    @IsNotEmpty()
+    @IsInt()
+    @Min(10)
+    @Max(90)
+    edad!: number;
+
+    @Expose()
+    @IsNotEmpty()
+    @IsString()
+    @Matches(/^(masculino|femenino|otro)$/, {
+        message: 'Sexo debe ser masculino, femenino u otro',
+    })
+    sexo!: string;
+
+    @Expose()
+    @IsOptional()
+    @IsString()
+    descripcion_sexo?: string;
     
     @Expose()
     @IsOptional()
