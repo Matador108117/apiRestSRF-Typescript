@@ -42,11 +42,6 @@ export class EvaluacionesFisicasDTOin {
         message: 'Sexo debe ser masculino, femenino u otro',
     })
     sexo!: string;
-
-    @Expose()
-    @IsOptional()
-    @IsString()
-    descripcion_sexo?: string;
     
     @Expose()
     @IsOptional()

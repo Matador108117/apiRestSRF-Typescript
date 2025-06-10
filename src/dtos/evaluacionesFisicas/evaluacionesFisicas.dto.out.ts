@@ -22,8 +22,6 @@ export class  EvaluacionesFisicasDTOout{
     @Expose()
     sexo!: string;
 
-    @Expose()
-    descripcion_sexo?: string;
     
     @Expose()
     observaciones!: string;
