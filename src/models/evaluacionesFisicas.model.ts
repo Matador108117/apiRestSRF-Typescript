@@ -38,11 +38,13 @@ export class EvaluacionesFisica extends Model<EvaluacionesFisica> {
     @Column(DataType.DECIMAL(5,2))
     declare altura: number;
     
-    @AllowNull(false)
+    @AllowNull(true)
+    @Default(0)
     @Column(DataType.INTEGER)
     declare edad: number;
 
-    @AllowNull(false)
+    @AllowNull(true)
+    @Default("Otro")
     @Column(DataType.STRING)
     declare sexo: string;
     
